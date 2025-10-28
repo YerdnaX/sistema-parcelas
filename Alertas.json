@@ -1,0 +1,10 @@
+[
+    {
+        "idParcela": "12",
+        "idSensor": "12",
+        "tipo": "humedadsuelo",
+        "fechaGeneracion": "2025-10-27 23:32:39",
+        "valorDetectado": "14356",
+        "mensajeAlerta": "Alerta de humedad excesiva: el umbral máximo de 12%. Se recomienda suspender el riego."
+    }
+]

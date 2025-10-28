@@ -47,3 +47,11 @@ class ClaseValidaciones:
             if lectura.idLectura == idLectura:
                 return True
         return False
+    
+    def esfechaValidaFormato(fechaLectura) -> bool:
+        from datetime import datetime
+        try:
+            datetime.strptime(fechaLectura, "%d-%m-%Y %H:%M:%S")
+            return True
+        except ValueError:
+            return False

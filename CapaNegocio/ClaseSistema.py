@@ -432,12 +432,7 @@ def nuevaLectura():
         else:
             print("El ID de la parcela no existe. Ingrese un ID válido.")
 
-    while True:
-        fechaHora = input("Ingrese la fecha y hora de la lectura (DD-MM-YYYY): ")
-        if ClaseValidaciones.esFechaValida(fechaHora):
-            break
-        else:
-            print("La fecha y hora ingresadas no son válidas. Ingrese una fecha en el formato DD-MM-YYYY.")
+    fechaHora = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
     while True:
         valorMedido = input("Ingrese el valor medido: ")
@@ -455,6 +450,7 @@ def nuevaLectura():
     ## guarda en json a partir del diccionario creado
     JsonManager.guardarLecturaSensorJson(Lecturasguardar, "./Lecturas.json")
     print("Lectura de sensor agregada exitosamente.")
+    determinarAlertas(lectura)
 
 ## cargar lecturas de sensores desde archivo XML ## 
 def cargarLecturasSensoresXML():
@@ -530,7 +526,7 @@ def leerLecturasJson():
 ######################## Funciones de alertas :D ########################
 def determinarAlertas(lectura):
     lecturaIDParcela = lectura.idParcela
-    lecturaIDSensor = lectura.idsensor
+    lecturaIDSensor = lectura.idSensor
     LecturaValorMedido = lectura.valorMedido
     for parcela in ListaParcelas:
         if parcela.idParcela == lecturaIDParcela:
@@ -542,10 +538,24 @@ def determinarAlertas(lectura):
         if sensor.idSensor == lecturaIDSensor:
             tipoSensor = sensor.tipo
             break
-    datosAlerta = Alertas.ClaseAlertas(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido)
     if tipoSensor == "humedadsuelo":
-
+        alertanueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaHumedadSuelo(LecturaValorMedido, LecturaUmbralMax))
+        nuevaAlerta(alertanueva)
     if tipoSensor == "temperatura":
-
+        pass
     if tipoSensor == "lluvia":
-        
+        pass
+
+def nuevaAlerta(NuevaAlerta):
+    ListaAlertas.append(NuevaAlerta)
+    Alertasguardar = [alerta.transformarDiccionario() for alerta in ListaAlertas]
+    JsonManager.guardarAlertaJson(Alertasguardar, "./Alertas.json")
+    print("Alerta generada exitosamente.")
+    ##HumedadSuelo/Temperatura/LLuvia
+
+def mensajeAlertaHumedadSuelo(LecturaValorMedido, LecturaUmbralMax) -> str:
+    if LecturaValorMedido > LecturaUmbralMax:
+        return "Alerta de humedad excesiva: el umbral máximo de {}%. Se recomienda suspender el riego.".format(LecturaUmbralMax)
+    return "La humedad del suelo está dentro de los niveles óptimos."
+
+

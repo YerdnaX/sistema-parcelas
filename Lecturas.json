@@ -12,5 +12,40 @@
         "idParcela": "2",
         "fechaHora": "2",
         "valorMedido": "2"
+    },
+    {
+        "idLectura": "12",
+        "idSensor": "12",
+        "idParcela": "12",
+        "fechaHora": "27-10-2025 23:24:30",
+        "valorMedido": "1344"
+    },
+    {
+        "idLectura": "14",
+        "idSensor": "12",
+        "idParcela": "12",
+        "fechaHora": "27-10-2025 23:25:48",
+        "valorMedido": "666"
+    },
+    {
+        "idLectura": "15",
+        "idSensor": "12",
+        "idParcela": "12",
+        "fechaHora": "27-10-2025 23:27:52",
+        "valorMedido": "1777"
+    },
+    {
+        "idLectura": "16",
+        "idSensor": "12",
+        "idParcela": "12",
+        "fechaHora": "27-10-2025 23:28:57",
+        "valorMedido": "1678"
+    },
+    {
+        "idLectura": "17",
+        "idSensor": "12",
+        "idParcela": "12",
+        "fechaHora": "27-10-2025 23:32:36",
+        "valorMedido": "14356"
     }
 ]

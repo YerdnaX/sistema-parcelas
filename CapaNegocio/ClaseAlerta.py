@@ -1,20 +1,13 @@
 class ClaseAlerta:
-    def __init__(self, idAlerta, idParcela, idSensor, tipo, fechaGeneracion, valorDetectado):
-        self.__idAlerta = idAlerta
+    def __init__(self, idParcela, idSensor, tipo, fechaGeneracion, valorDetectado, mensajeAlerta):
         self.__idParcela = idParcela
         self.__idSensor = idSensor
         self.__tipo = tipo 
         self.__fechaGeneracion = fechaGeneracion
         self.__valorDetectado = valorDetectado
+        self.__mensajeAlerta = mensajeAlerta
 
 ## Getters and Setters para cada atributo
-    @property
-    def idAlerta(self):
-        return self.__idAlerta
-    
-    @idAlerta.setter
-    def idAlerta(self, nuevoIdAlerta):
-        self.__idAlerta = nuevoIdAlerta
 
     @property
     def idParcela(self):
@@ -56,28 +49,36 @@ class ClaseAlerta:
     @valorDetectado.setter
     def valorDetectado(self, nuevoValor):
         self.__valorDetectado = nuevoValor
+
+    @property
+    def mensajeAlerta(self):
+        return self.__mensajeAlerta
+    
+    @mensajeAlerta.setter
+    def mensajeAlerta(self, nuevoMensaje):
+        self.__mensajeAlerta = nuevoMensaje
     
 ## string para imprimir la informacion
     def __str__(self):
-        return f"Alerta ID: {self.__idAlerta}, Parcela ID: {self.__idParcela}, Sensor ID: {self.__idSensor}, Tipo: {self.__tipo}, Fecha Generacion: {self.__fechaGeneracion}, Valor Detectado: {self.__valorDetectado}"
+        return f"Alerta - Parcela ID: {self.__idParcela}, Sensor ID: {self.__idSensor}, Tipo: {self.__tipo}, Fecha Generacion: {self.__fechaGeneracion}, Valor Detectado: {self.__valorDetectado}, Mensaje Alerta: {self.__mensajeAlerta}"
     
     def transformarDiccionario(self):
         return {
-            "idAlerta": self.__idAlerta,
             "idParcela": self.__idParcela,
             "idSensor": self.__idSensor,
             "tipo": self.__tipo,
             "fechaGeneracion": self.__fechaGeneracion,
-            "valorDetectado": self.__valorDetectado
+            "valorDetectado": self.__valorDetectado,
+            "mensajeAlerta": self.__mensajeAlerta
         }
     
 
     def crearDesdeDiccionario(data): 
         return ClaseAlerta(
-            data["idAlerta"],
             data["idParcela"],
             data["idSensor"],
             data["tipo"],
             data["fechaGeneracion"],
-            data["valorDetectado"]
+            data["valorDetectado"],
+            data["mensajeAlerta"]
         )

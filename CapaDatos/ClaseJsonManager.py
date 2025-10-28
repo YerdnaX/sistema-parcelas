@@ -51,3 +51,17 @@ def cargarLecturaSensorJson(RutaArchivo):
     with open(RutaArchivo, 'r', encoding="utf-8") as archivo:
             datos = json.load(archivo)
     return datos
+
+def guardarAlertaJson(alerta, RutaArchivo):
+    rutaUsar = Path(RutaArchivo)
+    rutaUsar.parent.mkdir(parents=True, exist_ok=True)
+    rutaUsar.touch(exist_ok=True)
+    with open(RutaArchivo, 'w', encoding="utf-8") as archivo:
+            json.dump(alerta, archivo, indent=4, ensure_ascii=False)
+
+def cargarAlertaJson(RutaArchivo):
+    if not os.path.exists(RutaArchivo):
+        return []
+    with open(RutaArchivo, 'r', encoding="utf-8") as archivo:
+            datos = json.load(archivo)
+    return datos
