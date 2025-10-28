@@ -1,0 +1,50 @@
+[
+    {
+        "idParcela": 1,
+        "nombre": "1",
+        "ubicacion": "1",
+        "tipoCultivo": "1",
+        "area": 1.0,
+        "profundidadRaiz": 1.0,
+        "eficienciaRiego": 1.0,
+        "umbralHumedadMin": 1.0,
+        "umbralHumedadMax": 1.0,
+        "volumenDeseado": 1.0
+    },
+    {
+        "idParcela": "12",
+        "nombre": "qw",
+        "ubicacion": "12",
+        "tipoCultivo": "qw",
+        "area": "12",
+        "profundidadRaiz": "12",
+        "eficienciaRiego": "12",
+        "umbralHumedadMin": "12",
+        "umbralHumedadMax": "12",
+        "volumenDeseado": "12"
+    },
+    {
+        "idParcela": "1",
+        "nombre": "asd",
+        "ubicacion": "qwe1",
+        "tipoCultivo": "arroz",
+        "area": 12.0,
+        "profundidadRaiz": "12",
+        "eficienciaRiego": "12",
+        "umbralHumedadMin": "12",
+        "umbralHumedadMax": "13",
+        "volumenDeseado": "122"
+    },
+    {
+        "idParcela": "1",
+        "nombre": "2",
+        "ubicacion": "3",
+        "tipoCultivo": "4",
+        "area": "3",
+        "profundidadRaiz": "2",
+        "eficienciaRiego": "2",
+        "umbralHumedadMin": "10",
+        "umbralHumedadMax": "9",
+        "volumenDeseado": "1"
+    }
+]

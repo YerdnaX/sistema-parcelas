@@ -1,0 +1,48 @@
+from ClaseMenu import *
+from CapaNegocio.ClaseSistema import *
+
+##############Clase aplicacion interactua con el menu y las funciones de la ClaseSistema##############
+def main():
+    leerParcelasJson()
+    leerSensoresJson()
+    leerLecturasJson()
+    
+    continuar = True
+    while continuar:
+        opcion = menu()
+        match opcion:
+            case 11:
+                nuevaparcela()
+            case 12:
+                modificarParcela()
+            case 13:
+                eliminarParcela()
+            case 14:
+                verParcelaPorID()
+            case 15:
+                verTodasLasParcelas()
+            case 21:
+                nuevoSensor()
+            case 22:
+                modificarSensor()
+            case 23:
+                eliminarSensor()
+            case 24:
+                verSensorPorID()
+            case 25:
+                verTodosLosSensores()
+            case 31:
+                nuevaLectura()
+            case 32:
+                cargarLecturasSensoresXML()
+            case 33:
+                verLecturaPorParcelaYSensor()
+            case 34:
+                print("Funcionalidad en desarrollo...")
+            case _:
+                continue
+                
+
+if __name__ == "__main__":
+    main()
+    

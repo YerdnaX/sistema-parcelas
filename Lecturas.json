@@ -1,0 +1,16 @@
+[
+    {
+        "idLectura": "1",
+        "idSensor": "1",
+        "idParcela": "1",
+        "fechaHora": "1",
+        "valorMedido": "1"
+    },
+    {
+        "idLectura": "2",
+        "idSensor": "2",
+        "idParcela": "2",
+        "fechaHora": "2",
+        "valorMedido": "2"
+    }
+]
