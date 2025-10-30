@@ -42,7 +42,7 @@ def main():
             case 32:
                 cargarLecturasSensoresXML()
             case 33:
-                verLecturaPorParcelaYSensor()
+                verLecturaPorFecha()
             case 34:
                 verSensoresPorParcela()
             case 35:

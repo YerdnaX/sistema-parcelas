@@ -126,6 +126,7 @@ def modificarParcela():
 
 ## Modificar valores generales de parcela 
 def modificarDatosGeneralesParcela():
+    Encontrada  = False
     idparcelamodificar = input("Ingrese el ID de la parcela que desea modificar: ")
     for parcela in ListaParcelas:
         if parcela.idParcela == idparcelamodificar:
@@ -478,27 +479,21 @@ def leerLecturasJson():
         ListaLecturas.append(lectura)
 
 ## ver lectura por parcela y sensor ## TESTEAR SI FUNCIONA ----------------------------
-def verLecturaPorParcelaYSensor():
-
+def verLecturaPorFecha():
     while True:
-        idparcelaver = input("Ingrese el ID de la parcela que desea ver: ")
-        if ClaseValidaciones.existeParcelaID(idparcelaver, ListaParcelas):
+        fechaVer = input("Ingrese la fecha (DD-MM-YYYY) de las lecturas que desea ver: ")
+        if ClaseValidaciones.esFechaCortaValida(fechaVer):
             break
         else:
-            print("El ID de la parcela no existe. Ingrese un ID valido.")
+            print("La fecha ingresada no es valida. Ingrese una fecha en el formato DD-MM-YYYY.")
 
-    while True:
-        idsensorver = input("Ingrese el ID del sensor que desea ver: ")
-        if ClaseValidaciones.existeSensorID(idsensorver, ListaSensores):
-            break
-        else:
-            print("El ID del sensor no existe. Ingrese un ID valido.")
-            
-    for lectura in ListaLecturas:
-        if lectura.idParcela == idparcelaver and lectura.idSensor == idsensorver:
-            print(lectura)
-            return
-    print("Lectura no encontrada.")
+    lecturasEncontradas = [lectura for lectura in ListaLecturas if lectura.fechaHora.startswith(fechaVer)]
+    if not lecturasEncontradas:
+        print("No se encontraron lecturas para la fecha y parcela especificada.")
+        return
+
+    for lectura in lecturasEncontradas:
+        print(lectura)
 
 def VerLecturasPorParcela():
     while True:

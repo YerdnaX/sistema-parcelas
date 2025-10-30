@@ -8,9 +8,23 @@
     },
     {
         "idLectura": "23",
-        "idSensor": "12",
+        "idSensor": "13",
         "idParcela": "13",
         "fechaHora": "28-10-2025 23:28:57",
         "valorMedido": "20"
+    },
+    {
+        "idLectura": "24",
+        "idSensor": "13",
+        "idParcela": "13",
+        "fechaHora": "28-10-2025 23:28:57",
+        "valorMedido": "19"
+    },
+    {
+        "idLectura": "25",
+        "idSensor": "13",
+        "idParcela": "13",
+        "fechaHora": "28-10-2025 23:28:57",
+        "valorMedido": "25"
     }
 ]

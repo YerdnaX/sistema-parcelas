@@ -1,20 +1,20 @@
 [
     {
         "idSensor": "12",
-        "tipo": "humedadsuelo",
+        "tipo": "lluvia",
         "idParcela": "12",
-        "estado": "Inactivo",
-        "ubicacionParcela": "12345, 3452134",
-        "unidadMedida": "triton 321",
-        "rangoValido": "123 - 453"
+        "estado": "inactivo",
+        "ubicacionParcela": "9.891938,  -83.859950",
+        "unidadMedida": "Phytos 31",
+        "rangoValido": "0-15"
     },
     {
         "idSensor": "13",
-        "tipo": "humedadsuelo",
-        "idParcela": "13",
-        "estado": "Inactivo",
-        "ubicacionParcela": "12345, 3452134",
-        "unidadMedida": "triton 321",
-        "rangoValido": "123 - 453"
+        "tipo": "lluvia",
+        "idParcela": "12",
+        "estado": "inactivo",
+        "ubicacionParcela": "9.891938,  -83.859950",
+        "unidadMedida": "Phytos 31",
+        "rangoValido": "0-15"
     }
 ]
