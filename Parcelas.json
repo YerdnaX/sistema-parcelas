@@ -5,10 +5,10 @@
         "ubicacion": "Norte-Este",
         "tipoCultivo": "Chayote",
         "area": "150",
-        "profundidadRaiz": "",
-        "eficienciaRiego": "",
-        "umbralHumedadMin": "",
-        "umbralHumedadMax": "",
-        "volumenDeseado": ""
+        "profundidadRaiz": "12",
+        "eficienciaRiego": "12",
+        "umbralHumedadMin": "12",
+        "umbralHumedadMax": "13",
+        "volumenDeseado": "100"
     }
 ]

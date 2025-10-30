@@ -80,6 +80,7 @@ def leerParcelasJson():
 
 ## modificar parcela existente ##
 def modificarParcela():
+    Encontrada  = False
     idparcelamodificar = input("Ingrese el ID de la parcela que desea modificar: ")
     for parcela in ListaParcelas:
         if parcela.idParcela == idparcelamodificar:
