@@ -22,7 +22,7 @@ def menu() -> int:
                 return opcionfinal
             case 3:
                 opcionfinal = menuLecturaSensores()
-                if opcionfinal == 35:
+                if opcionfinal == 36:
                     continue
                 return opcionfinal
             case 4:
@@ -85,10 +85,11 @@ def menuLecturaSensores() -> int:
         print("1: Agregar Lectura de Sensor")               
         print("2: Cargar Lecturas de Sensor desde el Archivo XML")
         print("3: Ver Lectura por parcela y sensor")
-        print("4: Borrar informacion de sensor por fecha")
-        print("5: Atras")
+        print("4: Ver Lectura por Parcela")
+        print("5: Borrar informacion de sensor por fecha")
+        print("6: Atras")
         opcionfinal = obtenerInputUsuario()
-        if opcionfinal < 1 or opcionfinal > 5:
+        if opcionfinal < 1 or opcionfinal > 6:
             print("Opcion no valida, intente de nuevo.")
             continue
         return opcionfinal + 30
@@ -97,8 +98,8 @@ def menuAlertas() -> int:
     continuar = True
     while continuar:
         print("Menu de Alertas")
-        print("1: Ver Alertas para fecha determinada")               
-        print("2: Ver Alertar por parcela y fecha")
+        print("1: Ver Alertas para parcela")               
+        print("2: Ver Alertas por parcela y fecha")
         print("3: Atras")
         opcionfinal = obtenerInputUsuario()
         if opcionfinal < 1 or opcionfinal > 3:
@@ -110,7 +111,7 @@ def menuVolumenRiesgo() -> int:
     continuar = True
     while continuar:
         print("Menu de Volumen de Riesgo")
-        print("1: Calcular Volumen de Riesgo")               
+        print("1: Calcular Volumen de Riesgo por Parcela y fecha")               
         print("2: Atras")
         opcionfinal = obtenerInputUsuario()
         if opcionfinal < 1 or opcionfinal > 2:

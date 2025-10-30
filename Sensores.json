@@ -6,15 +6,15 @@
         "estado": "Inactivo",
         "ubicacionParcela": "12345, 3452134",
         "unidadMedida": "triton 321",
-        "rangoValido": "123, 453"
+        "rangoValido": "123 - 453"
     },
     {
-        "idSensor": "111",
-        "tipo": "temperatura",
+        "idSensor": "333",
+        "tipo": "lluvia",
         "idParcela": "101",
         "estado": "activo",
-        "ubicacionParcela": "12345, 2341",
-        "unidadMedida": "gramos",
-        "rangoValido": "00 - 10"
+        "ubicacionParcela": "4398328456, 12345",
+        "unidadMedida": "gradis",
+        "rangoValido": "234- 235"
     }
 ]

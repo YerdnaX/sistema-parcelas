@@ -68,3 +68,11 @@ class ClaseValidaciones:
             return True
         except ValueError:
             return False
+        
+    def esFechaCortaValida(fechaBorrar) -> bool:
+        from datetime import datetime
+        try:
+            datetime.strptime(fechaBorrar, "%d-%m-%Y")
+            return True
+        except ValueError:
+            return False

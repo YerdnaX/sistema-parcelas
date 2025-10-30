@@ -6,7 +6,9 @@ def main():
     leerParcelasJson()
     leerSensoresJson()
     leerLecturasJson()
-    
+    leerAlertasJson()
+    leerCalculoVolumenRiegoJson()
+
     continuar = True
     while continuar:
         opcion = menu()
@@ -42,7 +44,15 @@ def main():
             case 33:
                 verLecturaPorParcelaYSensor()
             case 34:
-                print("Funcionalidad en desarrollo...")
+                verSensoresPorParcela()
+            case 35:
+                borrarLecturaParcelaFecha()
+            case 41:
+                verAlertasPorParcela()
+            case 42:
+                verAlertasPorParcelaFecha()
+            case 51:
+                calcularVolumenRiegoPorParcelaYFecha()
             case _:
                 continue
                 

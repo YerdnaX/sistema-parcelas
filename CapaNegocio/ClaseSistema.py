@@ -12,6 +12,7 @@ ListaParcelas = []
 ListaSensores = []
 ListaLecturas = []
 ListaAlertas = []
+ListaCalculoVolumen = []
 Encontrada = False
 
 ################## Funciones de parcelas :D ##################
@@ -423,7 +424,12 @@ def nuevaLectura():
         else:
             print("El ID de la parcela no existe. Ingrese un ID valido.")
 
-    fechaHora = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+    while True:
+        fechaHora = input("Ingrese la fecha y hora (DD-MM-YYYY HH:MM:SS): ")
+        if ClaseValidaciones.esfechaValidaFormato(fechaHora):
+            break
+        else:
+            print("La fecha y hora ingresadas no son validas. Ingrese una fecha y hora en el formato DD-MM-YYYY HH:MM:SS.")
 
     while True:
         valorMedido = input("Ingrese el valor medido: ")
@@ -486,25 +492,46 @@ def verLecturaPorParcelaYSensor():
             return
     print("Lectura no encontrada.")
 
-## borrar lecturas por fecha ## TESTEAR SI FUNCIONA ----------------------------
-def borrarLecturaFecha():
-
+def VerLecturasPorParcela():
     while True:
-        fechaBorrar = input("Ingrese la fecha (YYYY-MM-DD) de las lecturas que desea borrar: ")
-        if ClaseValidaciones.esFechaValida(fechaBorrar):
+        idparcelaver = input("Ingrese el ID de la parcela que desea ver: ")
+        if ClaseValidaciones.existeParcelaID(idparcelaver, ListaParcelas):
             break
         else:
-            print("La fecha ingresada no es valida. Ingrese una fecha en el formato YYYY-MM-DD.")
-    
-    lecturasaborrar = [lectura for lectura in ListaLecturas if lectura.fechaHora.startswith(fechaBorrar)]
+            print("El ID de la parcela no existe. Ingrese un ID valido.")
+            
+    for lectura in ListaLecturas:
+        if lectura.idParcela == idparcelaver:
+            print(lectura)
+            return
+    print("Lectura no encontrada.")
+
+## borrar lecturas por fecha ## TESTEAR SI FUNCIONA ----------------------------
+def borrarLecturaParcelaFecha():
+    while True:
+        idparcelaborrar = input("Ingrese el ID de la parcela que desea borrar las lecturas: ")
+        if ClaseValidaciones.existeParcelaID(idparcelaborrar, ListaParcelas):
+            break
+        else:
+            print("El ID de la parcela no existe. Ingrese un ID valido.")
+
+    while True:
+        fechaBorrar = input("Ingrese la fecha (DD-MM-YYYY) de las lecturas que desea borrar: ")
+        if ClaseValidaciones.esFechaCortaValida(fechaBorrar):
+            break
+        else:
+            print("La fecha ingresada no es valida. Ingrese una fecha en el formato DD-MM-YYYY.")
+
+    lecturasaborrar = [lectura for lectura in ListaLecturas if lectura.fechaHora.startswith(fechaBorrar) and lectura.idParcela == idparcelaborrar]
     if not lecturasaborrar:
-        print("No se encontraron lecturas para la fecha especificada.")
+        print("No se encontraron lecturas para la fecha y parcela especificada.")
         return
     for lectura in lecturasaborrar:
         ListaLecturas.remove(lectura)
     Lecturasguardar = [lectura.transformarDiccionario() for lectura in ListaLecturas]
     JsonManager.guardarLecturaSensorJson(Lecturasguardar, "./Lecturas.json")
-    print(f"Se borraron {len(lecturasaborrar)} lecturas para la fecha {fechaBorrar}.")
+    print(f"Se borraron {len(lecturasaborrar)} lecturas para la fecha {fechaBorrar} y la parcela {idparcelaborrar}.")
+
 
 ## leer el json de lecturas y cargar en la lista en memoria
 def leerLecturasJson():
@@ -515,6 +542,14 @@ def leerLecturasJson():
         ListaLecturas.append(lectura)
 
 ######################## Funciones de alertas :D ########################
+
+def leerAlertasJson():
+    ListaAlertas.clear()
+    datosAlertas = JsonManager.cargarAlertaJson("./Alertas.json")
+    for diccionjarioAlerta in datosAlertas:
+        alerta = Alertas.ClaseAlerta.crearDesdeDiccionario(diccionjarioAlerta)
+        ListaAlertas.append(alerta)
+        
 def determinarAlertas(lectura):
     lecturaIDParcela = lectura.idParcela
     lecturaIDSensor = lectura.idSensor
@@ -522,8 +557,9 @@ def determinarAlertas(lectura):
     for sensor in ListaSensores:
         if sensor.idSensor == lecturaIDSensor:
             rangoValido = sensor.rangoValido
-            rangoInferior = int(rangoValido.split('-')[0].strip())
-            rangoSuperior = int(rangoValido.split('-')[1].strip())
+            partes = [parte.strip() for parte in rangoValido.split('-')]
+            rangoInferior = partes[0]
+            rangoSuperior = partes[1]
             tipoSensor = sensor.tipo
             break
     if tipoSensor == "humedadsuelo":
@@ -533,8 +569,8 @@ def determinarAlertas(lectura):
         alertaNueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaTemperatura(LecturaValorMedido, rangoInferior, rangoSuperior))
         nuevaAlerta(alertaNueva)
     if tipoSensor == "lluvia":
-        nuevaAlerta = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaLluvia(LecturaValorMedido, rangoInferior, rangoSuperior))
-        nuevaAlerta(nuevaAlerta)
+        alertaNueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaLluvia(LecturaValorMedido, rangoInferior, rangoSuperior))
+        nuevaAlerta(alertaNueva)
 
 def nuevaAlerta(NuevaAlerta):
     ListaAlertas.append(NuevaAlerta)
@@ -544,7 +580,7 @@ def nuevaAlerta(NuevaAlerta):
     ##HumedadSuelo/Temperatura/LLuvia
 
 def mensajeAlertaHumedadSuelo(LecturaValorMedido, rangoInferior, rangoSuperior) -> str:
-    if LecturaValorMedido <= rangoInferior or LecturaValorMedido >= rangoSuperior:
+    if int(LecturaValorMedido) <= int(rangoInferior) or int(LecturaValorMedido) >= int(rangoSuperior):
         mensajeAlerta = "ALERTA!!!! El parametro {} rebasa el rango permitido [{} - {}]".format(LecturaValorMedido, rangoInferior, rangoSuperior)
         print(mensajeAlerta)
         return mensajeAlerta
@@ -553,7 +589,7 @@ def mensajeAlertaHumedadSuelo(LecturaValorMedido, rangoInferior, rangoSuperior) 
     return mensajeExito
 
 def mensajeAlertaTemperatura(LecturaValorMedido,rangoInferior, rangoSuperior) -> str:
-    if LecturaValorMedido <= rangoInferior or LecturaValorMedido >= rangoSuperior:
+    if int(LecturaValorMedido) <= int(rangoInferior) or int(LecturaValorMedido) >= int(rangoSuperior):
         mensajeAlerta = "ALERTA!!!! El parametro {} rebasa el rango permitido [{} - {}]".format(LecturaValorMedido, rangoInferior, rangoSuperior)
         print(mensajeAlerta)
         return mensajeAlerta
@@ -562,10 +598,102 @@ def mensajeAlertaTemperatura(LecturaValorMedido,rangoInferior, rangoSuperior) ->
     return mensajeExito
 
 def mensajeAlertaLluvia(LecturaValorMedido, rangoInferior, rangoSuperior) -> str:
-    if LecturaValorMedido <= rangoInferior or LecturaValorMedido >= rangoSuperior:
+    if int(LecturaValorMedido) <= int(rangoInferior) or int(LecturaValorMedido) >= int(rangoSuperior):
         mensajeAlerta = "ALERTA!!!! El parametro {} rebasa el rango permitido [{} - {}]".format(LecturaValorMedido, rangoInferior, rangoSuperior)
         print(mensajeAlerta)
         return mensajeAlerta
     mensajeExito = "La cantidad de lluvia esta dentro de los niveles optimos."
     print(mensajeExito)
     return mensajeExito
+
+def verAlertasPorParcela():
+    idParcelaVer = input("Ingrese el ID de la parcela para ver sus alertas: ")
+    if not ClaseValidaciones.existeParcelaID(idParcelaVer, ListaParcelas):
+        print("La parcela no existe.")
+        return
+
+    alertasEnParcela = [alerta for alerta in ListaAlertas if alerta.idParcela == idParcelaVer]
+    if not alertasEnParcela:
+        print("No hay alertas registradas en esta parcela.")
+        return
+
+    for alerta in alertasEnParcela:
+        print(alerta)
+
+def verAlertasPorParcelaFecha():
+    while True:
+        idParcelaVer = input("Ingrese el ID de la parcela para ver sus alertas: ")
+        if ClaseValidaciones.existeParcelaID(idParcelaVer, ListaParcelas):
+            break
+        else:
+            print("El ID de la parcela no existe. Ingrese un ID valido.")
+
+    while True:
+        fechaVer = input("Ingrese la fecha (DD-MM-YYYY) para ver las alertas: ")
+        if ClaseValidaciones.esFechaCortaValida(fechaVer):
+            break
+        else:
+            print("La fecha ingresada no es valida. Ingrese una fecha en el formato DD-MM-YYYY.")
+
+    alertasEncontradas = [alerta for alerta in ListaAlertas if int(alerta.idParcela) == int(idParcelaVer) and alerta.fechaGeneracion.startswith(fechaVer)]
+    if not alertasEncontradas:
+        print("No se encontraron alertas para la fecha y parcela especificada.")
+        return
+
+    for alerta in alertasEncontradas:
+        print(alerta)
+
+def calcularVolumenRiegoPorParcelaYFecha():
+    while True:
+        idParcelaVer = input("Ingrese el ID de la parcela para calcular el volumen de riego: ")
+        if ClaseValidaciones.existeParcelaID(idParcelaVer, ListaParcelas):
+            break
+        else:
+            print("El ID de la parcela no existe. Ingrese un ID valido.")
+
+    while True:
+        fechaVer = input("Ingrese la fecha (DD-MM-YYYY) para calcular el volumen de riego: ")
+        if ClaseValidaciones.esFechaCortaValida(fechaVer):
+            break
+        else:
+            print("La fecha ingresada no es valida. Ingrese una fecha en el formato DD-MM-YYYY.")
+
+    for parcela in ListaParcelas:
+        if parcela.idParcela == idParcelaVer:
+            areaParcela = float(parcela.area)
+            eficienciaRiego = float(parcela.eficienciaRiego)
+            profundidadRaiz = float(parcela.profundidadRaiz)
+            volumenRiegoDeseado = float(parcela.volumenDeseado)
+            break
+
+    for sensor in ListaSensores:
+        if sensor.idParcela == idParcelaVer and sensor.tipo == "humedadsuelo":
+            idSensorHumedadSuelo = sensor.idSensor
+            break
+    SensoresHumedad = [sensor for sensor in ListaSensores if sensor.idParcela == idParcelaVer and sensor.tipo == "humedadsuelo"]
+    humedadVolumetrica = 0.0
+    for sensor in SensoresHumedad:
+        idSensorHumedadSuelo = sensor.idSensor
+        lecturasFiltradas = [lectura for lectura in ListaLecturas if lectura.idParcela == idParcelaVer and lectura.idSensor == idSensorHumedadSuelo and lectura.fechaHora.startswith(fechaVer)]
+        if lecturasFiltradas:
+            for lectura in lecturasFiltradas:
+                humedadVolumetrica = humedadVolumetrica + float(lectura.valorMedido)
+            break
+
+    VolumenDeRiego = ((areaParcela * (volumenRiegoDeseado - humedadVolumetrica) * profundidadRaiz)/eficienciaRiego)
+    if humedadVolumetrica >= volumenRiegoDeseado:
+        print("El volumen de Riego Necesario es 0.")
+        print("No es necesario regar la parcela, ya que la humedad es adecuada al volumen de riego deseado.")
+    else:
+        print(f"El volumen total de riego para la parcela ID {idParcelaVer} en la fecha {fechaVer} es: {VolumenDeRiego} litros.")
+        print("Es necesario regar la parcela, ya que la humedad es menor al volumen de riego deseado.")
+
+    CalculoVolumenRiego = {'idParcela': idParcelaVer, 'fecha': fechaVer, 'volumenRiego': VolumenDeRiego}
+    ListaCalculoVolumen.append(CalculoVolumenRiego)
+    JsonManager.guardarCalculoVolumenRiegoJson(ListaCalculoVolumen, "./CalculoVolumenRiego.json")
+    
+def leerCalculoVolumenRiegoJson():
+    ListaCalculoVolumen.clear()
+    datosCalculo = JsonManager.cargarCalculoVolumenRiegoJson("./CalculoVolumenRiego.json")
+    for diccionarioCalculo in datosCalculo:
+        ListaCalculoVolumen.append(diccionarioCalculo)

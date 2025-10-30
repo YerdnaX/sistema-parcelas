@@ -65,3 +65,17 @@ def cargarAlertaJson(RutaArchivo):
     with open(RutaArchivo, 'r', encoding="utf-8") as archivo:
             datos = json.load(archivo)
     return datos
+
+def guardarCalculoVolumenRiegoJson(calculoVolumenRiego, RutaArchivo):
+    rutaUsar = Path(RutaArchivo)
+    rutaUsar.parent.mkdir(parents=True, exist_ok=True)
+    rutaUsar.touch(exist_ok=True)
+    with open(RutaArchivo, 'w', encoding="utf-8") as archivo:
+            json.dump(calculoVolumenRiego, archivo, indent=4, ensure_ascii=False)
+    
+def cargarCalculoVolumenRiegoJson(RutaArchivo):
+    if not os.path.exists(RutaArchivo):
+        return []
+    with open(RutaArchivo, 'r', encoding="utf-8") as archivo:
+            datos = json.load(archivo)
+    return datos
