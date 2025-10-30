@@ -233,7 +233,7 @@ def nuevoSensor():
             print("Ingrese un ID que sea un codigo de numeros enteros")
     
     while True:
-        tipo = input("Ingrese el tipo de sensor (HumedadSuelo/Temperatura/LLuvia):  ").lower()
+        tipo = input("Ingrese el tipo de sensor (HumedadSuelo/Temperatura/LLuvia(Humedad De La Hoja)):  ").lower()
         if ClaseValidaciones.esValidoTipoSensor(tipo):
             break
         else:
@@ -271,8 +271,8 @@ def nuevoSensor():
             print("Ingrese una unidad de medida adecuada")
 
     while True:
-        rangoValido = input("Ingrese el rango válido de medición del sensor: ")
-        if ClaseValidaciones.estaVacioString(rangoValido):
+        rangoValido = input("Ingrese el rango válido de medición del sensor(Formato: XX - XX): ")
+        if ClaseValidaciones.esRangoSensorValido(rangoValido):
             break
         else:
             print("Ingrese un rango válido adecuado")
@@ -519,25 +519,23 @@ def determinarAlertas(lectura):
     lecturaIDParcela = lectura.idParcela
     lecturaIDSensor = lectura.idSensor
     LecturaValorMedido = lectura.valorMedido
-    for parcela in ListaParcelas:
-        if parcela.idParcela == lecturaIDParcela:
-            LecturaUmbralMin = parcela.umbralHumedadMin
-            LecturaUmbralMax = parcela.umbralHumedadMax
-            LecturaVolumenDeseado = parcela.volumenDeseado
-            break
     for sensor in ListaSensores:
         if sensor.idSensor == lecturaIDSensor:
+            rangoValido = sensor.rangoValido
+            rangoInferior = int(rangoValido.split('-')[0].strip())
+            rangoSuperior = int(rangoValido.split('-')[1].strip())
             tipoSensor = sensor.tipo
             break
     if tipoSensor == "humedadsuelo":
-        alertaNueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaHumedadSuelo(LecturaValorMedido, LecturaUmbralMax))
+        alertaNueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaHumedadSuelo(LecturaValorMedido, rangoInferior, rangoSuperior))
         nuevaAlerta(alertaNueva)
     if tipoSensor == "temperatura":
-        alertaNueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaTemperatura(LecturaValorMedido, LecturaUmbralMin))
+        alertaNueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaTemperatura(LecturaValorMedido, rangoInferior, rangoSuperior))
         nuevaAlerta(alertaNueva)
     if tipoSensor == "lluvia":
-        nuevaAlerta = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaLluvia(LecturaValorMedido, LecturaVolumenDeseado))
+        nuevaAlerta = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaLluvia(LecturaValorMedido, rangoInferior, rangoSuperior))
         nuevaAlerta(nuevaAlerta)
+
 def nuevaAlerta(NuevaAlerta):
     ListaAlertas.append(NuevaAlerta)
     Alertasguardar = [alerta.transformarDiccionario() for alerta in ListaAlertas]
@@ -545,17 +543,29 @@ def nuevaAlerta(NuevaAlerta):
     print("Alerta generada exitosamente.")
     ##HumedadSuelo/Temperatura/LLuvia
 
-def mensajeAlertaHumedadSuelo(LecturaValorMedido, LecturaUmbralMax) -> str:
-    if LecturaValorMedido > LecturaUmbralMax:
-        return "Alerta de humedad excesiva: el umbral máximo de {}%. Se recomienda suspender el riego.".format(LecturaUmbralMax)
-    return "La humedad del suelo está dentro de los niveles óptimos."
+def mensajeAlertaHumedadSuelo(LecturaValorMedido, rangoInferior, rangoSuperior) -> str:
+    if LecturaValorMedido <= rangoInferior or LecturaValorMedido >= rangoSuperior:
+        mensajeAlerta = "ALERTA!!!! El parametro {} rebasa el rango permitido [{} - {}]".format(LecturaValorMedido, rangoInferior, rangoSuperior)
+        print(mensajeAlerta)
+        return mensajeAlerta
+    mensajeExito = "La humedad del suelo esta dentro de los niveles optimos."
+    print(mensajeExito)
+    return mensajeExito
 
-def mensajeAlertaTemperatura(LecturaValorMedido, LecturaUmbralMin) -> str:
-    if LecturaValorMedido > LecturaUmbralMin:
-        return "Alerta de temperatura alta: el umbral mínimo de {}°C. Se recomienda tomar medidas para enfriar el área.".format(LecturaUmbralMin)
-    return "La temperatura está dentro de los niveles óptimos."
+def mensajeAlertaTemperatura(LecturaValorMedido,rangoInferior, rangoSuperior) -> str:
+    if LecturaValorMedido <= rangoInferior or LecturaValorMedido >= rangoSuperior:
+        mensajeAlerta = "ALERTA!!!! El parametro {} rebasa el rango permitido [{} - {}]".format(LecturaValorMedido, rangoInferior, rangoSuperior)
+        print(mensajeAlerta)
+        return mensajeAlerta
+    mensajeExito = "La temperatura esta dentro de los niveles optimos."
+    print(mensajeExito)
+    return mensajeExito
 
-def mensajeAlertaLluvia(LecturaValorMedido, LecturaVolumenDeseado) -> str:
-    if LecturaValorMedido > LecturaVolumenDeseado:
-        return "Alerta de lluvia intensa: el umbral máximo de {}mm. Se recomienda revisar el sistema de drenaje.".format(LecturaVolumenDeseado)
-    return "La cantidad de lluvia está dentro de los niveles óptimos."
+def mensajeAlertaLluvia(LecturaValorMedido, rangoInferior, rangoSuperior) -> str:
+    if LecturaValorMedido <= rangoInferior or LecturaValorMedido >= rangoSuperior:
+        mensajeAlerta = "ALERTA!!!! El parametro {} rebasa el rango permitido [{} - {}]".format(LecturaValorMedido, rangoInferior, rangoSuperior)
+        print(mensajeAlerta)
+        return mensajeAlerta
+    mensajeExito = "La cantidad de lluvia esta dentro de los niveles optimos."
+    print(mensajeExito)
+    return mensajeExito

@@ -7,5 +7,14 @@
         "ubicacionParcela": "12345, 3452134",
         "unidadMedida": "triton 321",
         "rangoValido": "123, 453"
+    },
+    {
+        "idSensor": "111",
+        "tipo": "temperatura",
+        "idParcela": "101",
+        "estado": "activo",
+        "ubicacionParcela": "12345, 2341",
+        "unidadMedida": "gramos",
+        "rangoValido": "00 - 10"
     }
 ]

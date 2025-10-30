@@ -40,6 +40,19 @@ class ClaseValidaciones:
         tiposValidos = ["humedadsuelo", "temperatura", "lluvia"]
         return tipoSensor in tiposValidos
     
+    def esRangoSensorValido(entradaRango) -> bool:
+        if entradaRango is None:
+            return False
+        partes = [parte.strip() for parte in entradaRango.split('-')]
+        if len(partes) != 2:
+            return False
+        try:
+            limiteInferior = int(partes[0])
+            limiteSuperior = int(partes[1])
+            return limiteInferior < limiteSuperior
+        except ValueError:
+            return False
+    
 ##Validaciones Lectura
 
     def existeLectura(idLectura, listaLecturas) -> bool:
