@@ -84,7 +84,7 @@ def menuLecturaSensores() -> int:
         print("Menu de Lecturas de Sensores")
         print("1: Agregar Lectura de Sensor")               
         print("2: Cargar Lecturas de Sensor desde el Archivo XML")
-        print("3: Ver Lecturas por Fecha")
+        print("3: Ver Lecturas por Sensor")
         print("4: Ver Lectura por Parcela")
         print("5: Borrar informacion de sensor por fecha")
         print("6: Atras")

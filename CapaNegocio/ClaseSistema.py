@@ -388,22 +388,18 @@ def verTodosLosSensores():
 
 ## ver sensores por parcela ##
 def verSensoresPorParcela():
-    idparcela = input("Ingrese el ID de la parcela para ver sus sensores: ")
-    if not ClaseValidaciones.existeParcelaID(idparcela, ListaParcelas):
+    idparcelaver = input("Ingrese el ID de la parcela que desea ver los sensores: ")
+    if not ClaseValidaciones.existeParcelaID(idparcelaver, ListaParcelas):
         print("La parcela no existe.")
         return
 
-    sensoresEnParcela = [sensor for sensor in ListaSensores if sensor.idParcela == idparcela]
+    sensoresEnParcela = [sensor for sensor in ListaSensores if sensor.idParcela == idparcelaver]
     if not sensoresEnParcela:
         print("No hay sensores registrados en esta parcela.")
         return
 
     for sensor in sensoresEnParcela:
         print(sensor)
-
-
-
-
 
 ######################## Funciones de lecturas de sensores :D ########################
 
@@ -508,6 +504,20 @@ def VerLecturasPorParcela():
             print(lectura)
             return
     print("Lectura no encontrada.")
+
+## ver lecturas por sensor ## TESTEAR SI FUNCIONA ----------------------------
+def verLecturasSensor():
+    while True:
+        idsensorver = input("Ingrese el ID del sensor que desea ver las lecturas: ")
+        if ClaseValidaciones.existeSensorID(idsensorver, ListaSensores):
+            break
+        else:
+            print("El ID del sensor no existe. Ingrese un ID valido.")
+            
+    for lectura in ListaLecturas:
+        if lectura.idSensor == idsensorver:
+            print(lectura)
+    print("Fin de las lecturas para el sensor.")
 
 ## borrar lecturas por fecha ## TESTEAR SI FUNCIONA ----------------------------
 def borrarLecturaParcelaFecha():

@@ -10,5 +10,17 @@
         "umbralHumedadMin": "12",
         "umbralHumedadMax": "13",
         "volumenDeseado": "100"
+    },
+    {
+        "idParcela": "13",
+        "nombre": "Parcela Tomates",
+        "ubicacion": "Sur-Oeste",
+        "tipoCultivo": "Tomate",
+        "area": "200",
+        "profundidadRaiz": "15",
+        "eficienciaRiego": "12",
+        "umbralHumedadMin": "12",
+        "umbralHumedadMax": "13",
+        "volumenDeseado": "100"
     }
 ]
