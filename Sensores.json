@@ -1,20 +1,11 @@
 [
     {
-        "idSensor": "10111",
+        "idSensor": "12",
         "tipo": "humedadsuelo",
         "idParcela": "101",
         "estado": "Inactivo",
         "ubicacionParcela": "12345, 3452134",
         "unidadMedida": "triton 321",
         "rangoValido": "123 - 453"
-    },
-    {
-        "idSensor": "333",
-        "tipo": "lluvia",
-        "idParcela": "101",
-        "estado": "activo",
-        "ubicacionParcela": "4398328456, 12345",
-        "unidadMedida": "gradis",
-        "rangoValido": "234- 235"
     }
 ]

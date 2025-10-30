@@ -217,6 +217,9 @@ def verTodasLasParcelas():
 
 
 
+
+
+
 ################## Funciones de sensores :D ##################
 
 ## Funciones de lecturas de sensores :D ##
@@ -396,6 +399,10 @@ def verSensoresPorParcela():
     for sensor in sensoresEnParcela:
         print(sensor)
 
+
+
+
+
 ######################## Funciones de lecturas de sensores :D ########################
 
 
@@ -541,15 +548,21 @@ def leerLecturasJson():
         lectura = Lectura.ClaseLectura.crearDesdeDiccionario(diccionjarioLectura)
         ListaLecturas.append(lectura)
 
+
+
+
+
 ######################## Funciones de alertas :D ########################
 
+## leer el json de alertas y cargar en la lista en memoria ##
 def leerAlertasJson():
     ListaAlertas.clear()
     datosAlertas = JsonManager.cargarAlertaJson("./Alertas.json")
     for diccionjarioAlerta in datosAlertas:
         alerta = Alertas.ClaseAlerta.crearDesdeDiccionario(diccionjarioAlerta)
         ListaAlertas.append(alerta)
-        
+
+## determinar si una lectura genera una alerta ##
 def determinarAlertas(lectura):
     lecturaIDParcela = lectura.idParcela
     lecturaIDSensor = lectura.idSensor
@@ -572,6 +585,8 @@ def determinarAlertas(lectura):
         alertaNueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaLluvia(LecturaValorMedido, rangoInferior, rangoSuperior))
         nuevaAlerta(alertaNueva)
 
+
+## agregar nueva alerta y actualiza el json de alertas ##
 def nuevaAlerta(NuevaAlerta):
     ListaAlertas.append(NuevaAlerta)
     Alertasguardar = [alerta.transformarDiccionario() for alerta in ListaAlertas]
@@ -579,6 +594,8 @@ def nuevaAlerta(NuevaAlerta):
     print("Alerta generada exitosamente.")
     ##HumedadSuelo/Temperatura/LLuvia
 
+
+## Mensajes de alerta segun el tipo de sensor ##
 def mensajeAlertaHumedadSuelo(LecturaValorMedido, rangoInferior, rangoSuperior) -> str:
     if int(LecturaValorMedido) <= int(rangoInferior) or int(LecturaValorMedido) >= int(rangoSuperior):
         mensajeAlerta = "ALERTA!!!! El parametro {} rebasa el rango permitido [{} - {}]".format(LecturaValorMedido, rangoInferior, rangoSuperior)
@@ -588,6 +605,8 @@ def mensajeAlertaHumedadSuelo(LecturaValorMedido, rangoInferior, rangoSuperior) 
     print(mensajeExito)
     return mensajeExito
 
+
+## Mensajes de alerta segun el tipo de sensor ##
 def mensajeAlertaTemperatura(LecturaValorMedido,rangoInferior, rangoSuperior) -> str:
     if int(LecturaValorMedido) <= int(rangoInferior) or int(LecturaValorMedido) >= int(rangoSuperior):
         mensajeAlerta = "ALERTA!!!! El parametro {} rebasa el rango permitido [{} - {}]".format(LecturaValorMedido, rangoInferior, rangoSuperior)
@@ -597,6 +616,7 @@ def mensajeAlertaTemperatura(LecturaValorMedido,rangoInferior, rangoSuperior) ->
     print(mensajeExito)
     return mensajeExito
 
+## Mensajes de alerta segun el tipo de sensor ##
 def mensajeAlertaLluvia(LecturaValorMedido, rangoInferior, rangoSuperior) -> str:
     if int(LecturaValorMedido) <= int(rangoInferior) or int(LecturaValorMedido) >= int(rangoSuperior):
         mensajeAlerta = "ALERTA!!!! El parametro {} rebasa el rango permitido [{} - {}]".format(LecturaValorMedido, rangoInferior, rangoSuperior)
@@ -606,6 +626,8 @@ def mensajeAlertaLluvia(LecturaValorMedido, rangoInferior, rangoSuperior) -> str
     print(mensajeExito)
     return mensajeExito
 
+
+## ver alertas por parcela ##
 def verAlertasPorParcela():
     idParcelaVer = input("Ingrese el ID de la parcela para ver sus alertas: ")
     if not ClaseValidaciones.existeParcelaID(idParcelaVer, ListaParcelas):
@@ -620,6 +642,8 @@ def verAlertasPorParcela():
     for alerta in alertasEnParcela:
         print(alerta)
 
+
+## ver alertas por parcela y fecha ##
 def verAlertasPorParcelaFecha():
     while True:
         idParcelaVer = input("Ingrese el ID de la parcela para ver sus alertas: ")
@@ -642,6 +666,10 @@ def verAlertasPorParcelaFecha():
 
     for alerta in alertasEncontradas:
         print(alerta)
+
+
+######################## Funciones de calculo de volumen de riego :D ########################
+
 
 def calcularVolumenRiegoPorParcelaYFecha():
     while True:

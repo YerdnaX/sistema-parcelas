@@ -1,10 +1,2 @@
 [
-    {
-        "idParcela": "101",
-        "idSensor": "333",
-        "tipo": "lluvia",
-        "fechaGeneracion": "10-2-2025 21:39:30",
-        "valorDetectado": "33",
-        "mensajeAlerta": "ALERTA!!!! El parametro 33 rebasa el rango permitido [234 - 235]"
-    }
 ]

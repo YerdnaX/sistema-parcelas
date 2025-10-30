@@ -1,26 +1,14 @@
 [
     {
-        "idParcela": "101",
-        "nombre": "Parcela Nueva Esperanza",
-        "ubicacion": "1234, 93845",
-        "tipoCultivo": "Fresas",
-        "area": 100.0,
-        "profundidadRaiz": "0.30",
-        "eficienciaRiego": "0.5",
-        "umbralHumedadMin": "10",
-        "umbralHumedadMax": "25",
-        "volumenDeseado": "4.75"
-    },
-    {
         "idParcela": "12",
-        "nombre": "Parcela Nueva Esperanza2",
-        "ubicacion": "1234, 93845",
-        "tipoCultivo": "Fresas",
-        "area": 100.0,
-        "profundidadRaiz": "0.30",
-        "eficienciaRiego": "0.5",
-        "umbralHumedadMin": "10",
-        "umbralHumedadMax": "25",
-        "volumenDeseado": "4.75"
+        "nombre": "Parcela Chayotes",
+        "ubicacion": "Norte-Este",
+        "tipoCultivo": "Chayote",
+        "area": "150",
+        "profundidadRaiz": "",
+        "eficienciaRiego": "",
+        "umbralHumedadMin": "",
+        "umbralHumedadMax": "",
+        "volumenDeseado": ""
     }
 ]
