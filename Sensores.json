@@ -2,7 +2,16 @@
     {
         "idSensor": "12",
         "tipo": "humedadsuelo",
-        "idParcela": "101",
+        "idParcela": "12",
+        "estado": "Inactivo",
+        "ubicacionParcela": "12345, 3452134",
+        "unidadMedida": "triton 321",
+        "rangoValido": "123 - 453"
+    },
+    {
+        "idSensor": "13",
+        "tipo": "humedadsuelo",
+        "idParcela": "13",
         "estado": "Inactivo",
         "ubicacionParcela": "12345, 3452134",
         "unidadMedida": "triton 321",

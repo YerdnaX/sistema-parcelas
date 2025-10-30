@@ -1,2 +1,16 @@
 [
+    {
+        "idLectura": "22",
+        "idSensor": "12",
+        "idParcela": "12",
+        "fechaHora": "28-10-2025 23:28:57",
+        "valorMedido": "20"
+    },
+    {
+        "idLectura": "23",
+        "idSensor": "12",
+        "idParcela": "13",
+        "fechaHora": "28-10-2025 23:28:57",
+        "valorMedido": "20"
+    }
 ]
