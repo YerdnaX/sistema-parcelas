@@ -1,7 +1,7 @@
 def menu() -> int:
     continuar = True
     while continuar:
-        print("Menú de opciones")
+        print("Menu de opciones")
         print("1: Parcela")
         print("2: Sensores")
         print("3: Lecturas de sensores")
@@ -37,9 +37,9 @@ def menu() -> int:
                 return opcionfinal
             case 6:
                 continuar = False
-                print("Saliendo del menú...")
+                print("Saliendo del menu...")
             case _:
-                print("Opción no válida, intente de nuevo.")
+                print("Opcion no valida, intente de nuevo.")
                 continue     
         return opcion
 
@@ -47,7 +47,7 @@ def menu() -> int:
 def menuParcela() -> int:
     continuar = True
     while continuar:
-        print("Menú de Parcelas")
+        print("Menu de Parcelas")
         print("1: Agregar Parcela")               
         print("2: Modificar Parcela")
         print("3: Modificar Datos Generales de la Parcela")
@@ -57,14 +57,14 @@ def menuParcela() -> int:
         print("7: Atras")
         opcionfinal = obtenerInputUsuario()
         if opcionfinal < 1 or opcionfinal > 7:
-            print("Opción no válida, intente de nuevo.")
+            print("Opcion no valida, intente de nuevo.")
             continue
         return opcionfinal + 10
 
 def menuSensor() -> int:
     continuar = True
     while continuar:
-        print("Menú de Sensores")
+        print("Menu de Sensores")
         print("1: Agregar Sensor")               
         print("2: Modificar Sensor")
         print("3: Eliminar Sensor")
@@ -74,14 +74,14 @@ def menuSensor() -> int:
         print("7: Atras")
         opcionfinal = obtenerInputUsuario()
         if opcionfinal < 1 or opcionfinal > 7:
-            print("Opción no válida, intente de nuevo.")
+            print("Opcion no valida, intente de nuevo.")
             continue
         return opcionfinal + 20
     
 def menuLecturaSensores() -> int:
     continuar = True
     while continuar:
-        print("Menú de Lecturas de Sensores")
+        print("Menu de Lecturas de Sensores")
         print("1: Agregar Lectura de Sensor")               
         print("2: Cargar Lecturas de Sensor desde el Archivo XML")
         print("3: Ver Lectura por parcela y sensor")
@@ -89,38 +89,38 @@ def menuLecturaSensores() -> int:
         print("5: Atras")
         opcionfinal = obtenerInputUsuario()
         if opcionfinal < 1 or opcionfinal > 5:
-            print("Opción no válida, intente de nuevo.")
+            print("Opcion no valida, intente de nuevo.")
             continue
         return opcionfinal + 30
     
 def menuAlertas() -> int:
     continuar = True
     while continuar:
-        print("Menú de Alertas")
+        print("Menu de Alertas")
         print("1: Ver Alertas para fecha determinada")               
         print("2: Ver Alertar por parcela y fecha")
         print("3: Atras")
         opcionfinal = obtenerInputUsuario()
         if opcionfinal < 1 or opcionfinal > 3:
-            print("Opción no válida, intente de nuevo.")
+            print("Opcion no valida, intente de nuevo.")
             continue
         return opcionfinal + 40
 
 def menuVolumenRiesgo() -> int:
     continuar = True
     while continuar:
-        print("Menú de Volumen de Riesgo")
+        print("Menu de Volumen de Riesgo")
         print("1: Calcular Volumen de Riesgo")               
         print("2: Atras")
         opcionfinal = obtenerInputUsuario()
         if opcionfinal < 1 or opcionfinal > 2:
-            print("Opción no válida, intente de nuevo.")
+            print("Opcion no valida, intente de nuevo.")
             continue
         return opcionfinal + 50
     
 def obtenerInputUsuario() -> int:
     try:
-        opcionfinal = int(input("Seleccione una opción: "))
+        opcionfinal = int(input("Seleccione una opcion: "))
         return opcionfinal
     except ValueError:
         return -1

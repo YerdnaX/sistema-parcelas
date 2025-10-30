@@ -38,7 +38,7 @@ def nuevaparcela():
             print("Ingrese un nombre adecuado")
     
     while True:
-        ubicacion = input("Ingrese la ubicación de la parcela: ")
+        ubicacion = input("Ingrese la ubicacion de la parcela: ")
         if ClaseValidaciones.estaVacioString(ubicacion):
             break
         else:
@@ -52,7 +52,7 @@ def nuevaparcela():
             print("Ingrese un tipo de cultivo")
 
     while True:
-        area = input("Ingrese el área de la parcela (en m²): ")
+        area = input("Ingrese el area de la parcela (en m²): ")
         if ClaseValidaciones.esNumericoNoVacioFloat(area):
             break
         else:
@@ -93,7 +93,7 @@ def modificarParcela():
                     print("Ingrese un nombre adecuado")
 
             while True:
-                parcela.ubicacion = input("Ingrese la nueva ubicación de la parcela: ")
+                parcela.ubicacion = input("Ingrese la nueva ubicacion de la parcela: ")
                 if ClaseValidaciones.estaVacioString(parcela.ubicacion):
                     break
                 else:
@@ -107,7 +107,7 @@ def modificarParcela():
                     print("Ingrese un tipo de cultivo")
             
             while True:
-                area = input("Ingrese la área de la parcela (en m²): ")
+                area = input("Ingrese la area de la parcela (en m²): ")
                 if ClaseValidaciones.esNumericoNoVacioFloat(area):
                     parcela.area = float(area)
                     break
@@ -131,7 +131,7 @@ def modificarDatosGeneralesParcela():
             print("Parcela encontrada. Ingrese los nuevos datos:")
             
             while True:
-                parcela.profundidadRaiz = input("Ingrese la nueva profundidad de la raíz (en cm): ")
+                parcela.profundidadRaiz = input("Ingrese la nueva profundidad de la raiz (en cm): ")
                 if ClaseValidaciones.esNumericoNoVacioFloat(parcela.profundidadRaiz):
                     break
                 else:
@@ -145,14 +145,14 @@ def modificarDatosGeneralesParcela():
                     print("Ingrese una eficiencia de riego en valores numericos")
 
             while True:
-                parcela.umbralHumedadMin = input("Ingrese el nuevo umbral de humedad mínimo (en %): ")
+                parcela.umbralHumedadMin = input("Ingrese el nuevo umbral de humedad minimo (en %): ")
                 if ClaseValidaciones.esNumericoNoVacioFloat(parcela.umbralHumedadMin):
                     break
                 else:
                     print("Ingrese un umbral de humedad minino en valores numericos")
 
             while True:
-                parcela.umbralHumedadMax = input("Ingrese el nuevo umbral de humedad máximo (en %): ")
+                parcela.umbralHumedadMax = input("Ingrese el nuevo umbral de humedad maximo (en %): ")
                 if ClaseValidaciones.esNumericoNoVacioFloat(parcela.umbralHumedadMax):
                     if float(parcela.umbralHumedadMax) > float(parcela.umbralHumedadMin):
                         break
@@ -245,7 +245,7 @@ def nuevoSensor():
             if ClaseValidaciones.existeParcelaID(idParcela, ListaParcelas):
                 break
             else:
-                print("El ID de la parcela no existe. Ingrese un ID válido.")
+                print("El ID de la parcela no existe. Ingrese un ID valido.")
         else:
             print("Ingrese un ID que sea un codigo de numeros enteros")
 
@@ -254,10 +254,10 @@ def nuevoSensor():
         if ClaseValidaciones.esValidoEstadoSensor(estado):
             break
         else:
-            print("Ingrese un estado válido: activo, inactivo, mantenimiento o revision")
+            print("Ingrese un estado valido: activo, inactivo, mantenimiento o revision")
 
     while True:
-        ubicacionParcela = input("Ingrese la ubicación del sensor en la parcela: ")
+        ubicacionParcela = input("Ingrese la ubicacion del sensor en la parcela: ")
         if ClaseValidaciones.estaVacioString(ubicacionParcela):
             break
         else:
@@ -271,11 +271,11 @@ def nuevoSensor():
             print("Ingrese una unidad de medida adecuada")
 
     while True:
-        rangoValido = input("Ingrese el rango válido de medición del sensor(Formato: XX - XX): ")
+        rangoValido = input("Ingrese el rango valido de medicion del sensor(Formato: XX - XX): ")
         if ClaseValidaciones.esRangoSensorValido(rangoValido):
             break
         else:
-            print("Ingrese un rango válido adecuado")
+            print("Ingrese un rango valido adecuado")
 
     sensor = Sensor.ClaseSensor(idSensor, tipo, idParcela, estado, ubicacionParcela, unidadMedida, rangoValido)
 ## agrega a lista en memoria
@@ -314,7 +314,7 @@ def modificarSensor():
                     if ClaseValidaciones.existeParcelaID(sensor.idParcela, ListaParcelas):
                         break
                     else:
-                        print("El ID de la parcela no existe. Ingrese un ID válido.")
+                        print("El ID de la parcela no existe. Ingrese un ID valido.")
             
             while True:
                 sensor.estado = input("Ingrese el nuevo estado del sensor (activo/inactivo): ")
@@ -324,11 +324,11 @@ def modificarSensor():
                     print("Ingrese un estado de sensor adecuado")
 
             while True:
-                sensor.ubicacionParcela = input("Ingrese la nueva ubicación del sensor en la parcela: ")
+                sensor.ubicacionParcela = input("Ingrese la nueva ubicacion del sensor en la parcela: ")
                 if ClaseValidaciones.estaVacioString(sensor.ubicacionParcela):
                     break
                 else:
-                    print("Ingrese una ubicación adecuada")
+                    print("Ingrese una ubicacion adecuada")
 
             while True:
                 sensor.unidadMedida = input("Ingrese la nueva unidad de medida del sensor: ")
@@ -338,11 +338,11 @@ def modificarSensor():
                     print("Ingrese una unidad de medida adecuada")
 
             while True:
-                sensor.rangoValido = input("Ingrese el nuevo rango válido de medición del sensor: ")
+                sensor.rangoValido = input("Ingrese el nuevo rango valido de medicion del sensor: ")
                 if ClaseValidaciones.estaVacioString(sensor.rangoValido):
                     break
                 else:
-                    print("Ingrese un rango válido adecuado")
+                    print("Ingrese un rango valido adecuado")
 
             Sensoresguardar = [sensor.transformarDiccionario() for sensor in ListaSensores]
             JsonManager.guardarSensorJson(Sensoresguardar, "./Sensores.json")
@@ -414,14 +414,14 @@ def nuevaLectura():
         if ClaseValidaciones.existeSensorID(idSensor, ListaSensores):
             break
         else:
-            print("El ID del sensor no existe. Ingrese un ID válido.")
+            print("El ID del sensor no existe. Ingrese un ID valido.")
 
     while True:
         idParcela = input("Ingrese el ID de la parcela: ")
         if ClaseValidaciones.existeParcelaID(idParcela, ListaParcelas):
             break
         else:
-            print("El ID de la parcela no existe. Ingrese un ID válido.")
+            print("El ID de la parcela no existe. Ingrese un ID valido.")
 
     fechaHora = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
@@ -471,14 +471,14 @@ def verLecturaPorParcelaYSensor():
         if ClaseValidaciones.existeParcelaID(idparcelaver, ListaParcelas):
             break
         else:
-            print("El ID de la parcela no existe. Ingrese un ID válido.")
+            print("El ID de la parcela no existe. Ingrese un ID valido.")
 
     while True:
         idsensorver = input("Ingrese el ID del sensor que desea ver: ")
         if ClaseValidaciones.existeSensorID(idsensorver, ListaSensores):
             break
         else:
-            print("El ID del sensor no existe. Ingrese un ID válido.")
+            print("El ID del sensor no existe. Ingrese un ID valido.")
             
     for lectura in ListaLecturas:
         if lectura.idParcela == idparcelaver and lectura.idSensor == idsensorver:
@@ -494,7 +494,7 @@ def borrarLecturaFecha():
         if ClaseValidaciones.esFechaValida(fechaBorrar):
             break
         else:
-            print("La fecha ingresada no es válida. Ingrese una fecha en el formato YYYY-MM-DD.")
+            print("La fecha ingresada no es valida. Ingrese una fecha en el formato YYYY-MM-DD.")
     
     lecturasaborrar = [lectura for lectura in ListaLecturas if lectura.fechaHora.startswith(fechaBorrar)]
     if not lecturasaborrar:

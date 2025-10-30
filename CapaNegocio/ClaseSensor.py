@@ -68,7 +68,7 @@ class ClaseSensor:
 
  ## string para imprimir la informacion del sensor   
     def __str__(self):
-        return "ID Sensor: {}  Tipo: {}  ID Parcela: {}  Estado: {}  Ubicación en Parcela: {}  Unidad de Medida: {}  Rango Válido: {}".format(self.__idSensor, self.__tipo, self.__idParcela, self.__estado, self.__ubicacionParcela, self.__unidadMedida, self.__rangoValido)
+        return "ID Sensor: {}  Tipo: {}  ID Parcela: {}  Estado: {}  Ubicacion en Parcela: {}  Unidad de Medida: {}  Rango Valido: {}".format(self.__idSensor, self.__tipo, self.__idParcela, self.__estado, self.__ubicacionParcela, self.__unidadMedida, self.__rangoValido)
     
     def transformarDiccionario(self) -> dict:
         return {

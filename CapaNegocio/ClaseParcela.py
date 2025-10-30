@@ -95,7 +95,7 @@ class ClaseParcela:
 
 ## string para imprimir la informacion
     def __str__(self):
-        return "ID Parcela: {}  Nombre: {}  Ubicación: {}  Tipo de Cultivo: {}  Área: {}  Profundidad de Raíz: {}  Eficiencia de Riego: {}  Umbral de Humedad Mínimo: {}  Umbral de Humedad Máximo: {}  Volumen Deseado: {}".format(self.__idParcela, self.__nombre, self.__ubicacion, self.__tipoCultivo, self.__area, self.__profundidadRaiz, self.__eficienciaRiego, self.__umbralHumedadMin, self.__umbralHumedadMax, self.__volumenDeseado)
+        return "ID Parcela: {}  Nombre: {}  Ubicacion: {}  Tipo de Cultivo: {}  Area: {}  Profundidad de Raiz: {}  Eficiencia de Riego: {}  Umbral de Humedad Minimo: {}  Umbral de Humedad Maximo: {}  Volumen Deseado: {}".format(self.__idParcela, self.__nombre, self.__ubicacion, self.__tipoCultivo, self.__area, self.__profundidadRaiz, self.__eficienciaRiego, self.__umbralHumedadMin, self.__umbralHumedadMax, self.__volumenDeseado)
     
     def transformarDiccionario(self):
         return {

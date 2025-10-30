@@ -5,6 +5,6 @@
         "tipo": "humedadsuelo",
         "fechaGeneracion": "2025-10-27 23:32:39",
         "valorDetectado": "14356",
-        "mensajeAlerta": "Alerta de humedad excesiva: el umbral máximo de 12%. Se recomienda suspender el riego."
+        "mensajeAlerta": "Alerta de humedad excesiva: el umbral maximo de 12%. Se recomienda suspender el riego."
     }
 ]
