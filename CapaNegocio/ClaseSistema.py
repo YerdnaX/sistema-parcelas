@@ -567,6 +567,7 @@ def determinarAlertas(lectura):
     lecturaIDParcela = lectura.idParcela
     lecturaIDSensor = lectura.idSensor
     LecturaValorMedido = lectura.valorMedido
+    lecturaFechaHora = lectura.fechaHora
     for sensor in ListaSensores:
         if sensor.idSensor == lecturaIDSensor:
             rangoValido = sensor.rangoValido
@@ -576,15 +577,14 @@ def determinarAlertas(lectura):
             tipoSensor = sensor.tipo
             break
     if tipoSensor == "humedadsuelo":
-        alertaNueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaHumedadSuelo(LecturaValorMedido, rangoInferior, rangoSuperior))
+        alertaNueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, lecturaFechaHora, LecturaValorMedido, mensajeAlertaHumedadSuelo(LecturaValorMedido, rangoInferior, rangoSuperior))
         nuevaAlerta(alertaNueva)
     if tipoSensor == "temperatura":
-        alertaNueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaTemperatura(LecturaValorMedido, rangoInferior, rangoSuperior))
+        alertaNueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, lecturaFechaHora, LecturaValorMedido, mensajeAlertaTemperatura(LecturaValorMedido, rangoInferior, rangoSuperior))
         nuevaAlerta(alertaNueva)
     if tipoSensor == "lluvia":
-        alertaNueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaLluvia(LecturaValorMedido, rangoInferior, rangoSuperior))
+        alertaNueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, lecturaFechaHora, LecturaValorMedido, mensajeAlertaLluvia(LecturaValorMedido, rangoInferior, rangoSuperior))
         nuevaAlerta(alertaNueva)
-
 
 ## agregar nueva alerta y actualiza el json de alertas ##
 def nuevaAlerta(NuevaAlerta):
@@ -593,7 +593,6 @@ def nuevaAlerta(NuevaAlerta):
     JsonManager.guardarAlertaJson(Alertasguardar, "./Alertas.json")
     print("Alerta generada exitosamente.")
     ##HumedadSuelo/Temperatura/LLuvia
-
 
 ## Mensajes de alerta segun el tipo de sensor ##
 def mensajeAlertaHumedadSuelo(LecturaValorMedido, rangoInferior, rangoSuperior) -> str:
@@ -604,7 +603,6 @@ def mensajeAlertaHumedadSuelo(LecturaValorMedido, rangoInferior, rangoSuperior) 
     mensajeExito = "La humedad del suelo esta dentro de los niveles optimos."
     print(mensajeExito)
     return mensajeExito
-
 
 ## Mensajes de alerta segun el tipo de sensor ##
 def mensajeAlertaTemperatura(LecturaValorMedido,rangoInferior, rangoSuperior) -> str:
