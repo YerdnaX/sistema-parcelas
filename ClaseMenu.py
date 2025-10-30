@@ -12,12 +12,12 @@ def menu() -> int:
         match opcion:
             case 1:
                 opcionfinal = menuParcela()
-                if opcionfinal == 16:
+                if opcionfinal == 17:
                     continue
                 return opcionfinal
             case 2:
                 opcionfinal = menuSensor()
-                if opcionfinal == 26:
+                if opcionfinal == 27:
                     continue
                 return opcionfinal
             case 3:
@@ -50,12 +50,13 @@ def menuParcela() -> int:
         print("Menú de Parcelas")
         print("1: Agregar Parcela")               
         print("2: Modificar Parcela")
-        print("3: Eliminar Parcela")
-        print("4: Ver Parcelas por ID")
-        print("5: Ver Todas las Parcelas")
-        print("6: Atras")
+        print("3: Modificar Datos Generales de la Parcela")
+        print("4: Eliminar Parcela")
+        print("5: Ver Parcelas por ID")
+        print("6: Ver Todas las Parcelas")
+        print("7: Atras")
         opcionfinal = obtenerInputUsuario()
-        if opcionfinal < 1 or opcionfinal > 6:
+        if opcionfinal < 1 or opcionfinal > 7:
             print("Opción no válida, intente de nuevo.")
             continue
         return opcionfinal + 10
@@ -69,9 +70,10 @@ def menuSensor() -> int:
         print("3: Eliminar Sensor")
         print("4: Ver Sensor por ID")
         print("5: Ver Todos los Sensores")
-        print("6: Atras")
+        print("6: Ver Sensores por Parcela")
+        print("7: Atras")
         opcionfinal = obtenerInputUsuario()
-        if opcionfinal < 1 or opcionfinal > 6:
+        if opcionfinal < 1 or opcionfinal > 7:
             print("Opción no válida, intente de nuevo.")
             continue
         return opcionfinal + 20

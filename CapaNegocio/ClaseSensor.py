@@ -61,6 +61,10 @@ class ClaseSensor:
     @property
     def rangoValido(self):
         return self.__rangoValido
+    
+    @rangoValido.setter
+    def rangoValido(self, nuevoRango):
+        self.__rangoValido = nuevoRango
 
  ## string para imprimir la informacion del sensor   
     def __str__(self):

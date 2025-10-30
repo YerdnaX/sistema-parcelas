@@ -58,47 +58,9 @@ def nuevaparcela():
         else:
             print("Ingrese un area en valores numericos")
 
-    while True:
-        profundidadRaiz = input("Ingrese la profundidad de la raíz (en cm): ")
-        if ClaseValidaciones.esNumericoNoVacioFloat(profundidadRaiz):
-            break
-        else:
-            print("Ingrese una profundidad de raiz en valores numericos")
-    
-    while True:
-        eficienciaRiego = input("Ingrese la eficiencia de riego (en %): ")
-        if ClaseValidaciones.esNumericoNoVacioFloat(eficienciaRiego):
-            break
-        else:
-            print("Ingrese una eficiencia de riego en valores numericos")
-
-    while True:
-        umbralHumedadMin = input("Ingrese el umbral de humedad mínimo (en %): ")
-        if ClaseValidaciones.esNumericoNoVacioFloat(umbralHumedadMin):
-            break
-        else:
-            print("Ingrese un umbral de humedad minino en valores numericos")
-
-    while True:
-        umbralHumedadMax = input("Ingrese el umbral de humedad máximo (en %): ")
-        if ClaseValidaciones.esNumericoNoVacioFloat(umbralHumedadMax):
-            if float(umbralHumedadMax) > float(umbralHumedadMin):
-                break
-            else:
-                print("El umbral de humedad maximo debe ser mayor al umbral de humedad minimo")
-        else:
-            print("Ingrese un umbral de humedad maximo en valores numericos")
 
 
-
-    while True:
-        volumenDeseado = input("Ingrese el volumen deseado de agua (en litros): ")
-        if ClaseValidaciones.esNumericoNoVacioFloat(volumenDeseado):
-            break
-        else:
-            print("Ingrese un volumen deseado en valores numericos")
-
-    parcela = Parcela.ClaseParcela(idParcela, nombre, ubicacion, tipoCultivo, area, profundidadRaiz, eficienciaRiego, umbralHumedadMin, umbralHumedadMax, volumenDeseado)
+    parcela = Parcela.ClaseParcela(idParcela, nombre, ubicacion, tipoCultivo, area, "", "", "", "", "")
 ## agrega a lista en memoria
     ListaParcelas.append(parcela)
 ## genera una lista de diccionarios para guardar en json
@@ -152,6 +114,22 @@ def modificarParcela():
                 else:
                     print("Ingrese un area en valores numericos")
 
+
+            Parcelasguardar = [parcela.transformarDiccionario() for parcela in ListaParcelas]
+            JsonManager.guardarParcelaJson(Parcelasguardar, "./Parcelas.json")
+            print("Parcela modificada exitosamente.")
+            return
+    if not Encontrada:
+        print("Parcela no encontrada.")
+
+## Modificar valores generales de parcela 
+def modificarDatosGeneralesParcela():
+    idparcelamodificar = input("Ingrese el ID de la parcela que desea modificar: ")
+    for parcela in ListaParcelas:
+        if parcela.idParcela == idparcelamodificar:
+            Encontrada = True
+            print("Parcela encontrada. Ingrese los nuevos datos:")
+            
             while True:
                 parcela.profundidadRaiz = input("Ingrese la nueva profundidad de la raíz (en cm): ")
                 if ClaseValidaciones.esNumericoNoVacioFloat(parcela.profundidadRaiz):
@@ -196,7 +174,6 @@ def modificarParcela():
             return
     if not Encontrada:
         print("Parcela no encontrada.")
-
 ## eliminar parcela existente ##
 def eliminarParcela():
     while True:
@@ -207,7 +184,7 @@ def eliminarParcela():
             print("Ingrese un ID que sea un codigo de numeros enteros")
 
     for parcela in ListaParcelas:
-        if parcela.idParcela == int(idparcelaeliminar):
+        if int(parcela.idParcela) == int(idparcelaeliminar):
             ListaParcelas.remove(parcela)
             Parcelasguardar = [parcela.transformarDiccionario() for parcela in ListaParcelas]
             JsonManager.guardarParcelaJson(Parcelasguardar, "./Parcelas.json")
@@ -403,6 +380,20 @@ def verTodosLosSensores():
     for sensor in ListaSensores:
         print(sensor)
 
+## ver sensores por parcela ##
+def verSensoresPorParcela():
+    idparcela = input("Ingrese el ID de la parcela para ver sus sensores: ")
+    if not ClaseValidaciones.existeParcelaID(idparcela, ListaParcelas):
+        print("La parcela no existe.")
+        return
+
+    sensoresEnParcela = [sensor for sensor in ListaSensores if sensor.idParcela == idparcela]
+    if not sensoresEnParcela:
+        print("No hay sensores registrados en esta parcela.")
+        return
+
+    for sensor in sensoresEnParcela:
+        print(sensor)
 
 ######################## Funciones de lecturas de sensores :D ########################
 

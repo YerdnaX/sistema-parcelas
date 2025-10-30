@@ -1,11 +1,11 @@
 [
     {
-        "idSensor": "12",
+        "idSensor": "10111",
         "tipo": "humedadsuelo",
-        "idParcela": "12",
-        "estado": "inactivo",
-        "ubicacionParcela": "norte",
-        "unidadMedida": "grados?",
-        "rangoValido": "50"
+        "idParcela": "101",
+        "estado": "Inactivo",
+        "ubicacionParcela": "12345, 3452134",
+        "unidadMedida": "triton 321",
+        "rangoValido": "123, 453"
     }
 ]

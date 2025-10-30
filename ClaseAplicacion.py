@@ -16,10 +16,12 @@ def main():
             case 12:
                 modificarParcela()
             case 13:
-                eliminarParcela()
+                modificarDatosGeneralesParcela()
             case 14:
-                verParcelaPorID()
+                eliminarParcela()
             case 15:
+                verParcelaPorID()
+            case 16:
                 verTodasLasParcelas()
             case 21:
                 nuevoSensor()
@@ -31,6 +33,8 @@ def main():
                 verSensorPorID()
             case 25:
                 verTodosLosSensores()
+            case 26:
+                verSensoresPorParcela()
             case 31:
                 nuevaLectura()
             case 32:
