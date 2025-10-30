@@ -539,13 +539,14 @@ def determinarAlertas(lectura):
             tipoSensor = sensor.tipo
             break
     if tipoSensor == "humedadsuelo":
-        alertanueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaHumedadSuelo(LecturaValorMedido, LecturaUmbralMax))
-        nuevaAlerta(alertanueva)
+        alertaNueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaHumedadSuelo(LecturaValorMedido, LecturaUmbralMax))
+        nuevaAlerta(alertaNueva)
     if tipoSensor == "temperatura":
-        pass
+        alertaNueva = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaTemperatura(LecturaValorMedido, LecturaUmbralMin))
+        nuevaAlerta(alertaNueva)
     if tipoSensor == "lluvia":
-        pass
-
+        nuevaAlerta = Alertas.ClaseAlerta(lecturaIDParcela, lecturaIDSensor, tipoSensor, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), LecturaValorMedido, mensajeAlertaLluvia(LecturaValorMedido, LecturaVolumenDeseado))
+        nuevaAlerta(nuevaAlerta)
 def nuevaAlerta(NuevaAlerta):
     ListaAlertas.append(NuevaAlerta)
     Alertasguardar = [alerta.transformarDiccionario() for alerta in ListaAlertas]
@@ -558,4 +559,12 @@ def mensajeAlertaHumedadSuelo(LecturaValorMedido, LecturaUmbralMax) -> str:
         return "Alerta de humedad excesiva: el umbral máximo de {}%. Se recomienda suspender el riego.".format(LecturaUmbralMax)
     return "La humedad del suelo está dentro de los niveles óptimos."
 
+def mensajeAlertaTemperatura(LecturaValorMedido, LecturaUmbralMin) -> str:
+    if LecturaValorMedido > LecturaUmbralMin:
+        return "Alerta de temperatura alta: el umbral mínimo de {}°C. Se recomienda tomar medidas para enfriar el área.".format(LecturaUmbralMin)
+    return "La temperatura está dentro de los niveles óptimos."
 
+def mensajeAlertaLluvia(LecturaValorMedido, LecturaVolumenDeseado) -> str:
+    if LecturaValorMedido > LecturaVolumenDeseado:
+        return "Alerta de lluvia intensa: el umbral máximo de {}mm. Se recomienda revisar el sistema de drenaje.".format(LecturaVolumenDeseado)
+    return "La cantidad de lluvia está dentro de los niveles óptimos."
